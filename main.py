@@ -1,5 +1,5 @@
-from services.db_handler import DbHandler
-from services.json_handler import JsonHandler
+from src.db_handler import DbHandler
+from src.json_handler import JsonHandler
 
 def processar_estoque():
     json_manager = JsonHandler()
