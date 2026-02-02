@@ -1,0 +1,12 @@
+[
+    {
+        "nome": "cimento",
+        "preco": 35.5,
+        "quantidade": 100
+    },
+    {
+        "nome": "argamassa",
+        "preco": 0.8,
+        "quantidade": 5000
+    }
+]
