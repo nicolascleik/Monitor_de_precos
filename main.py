@@ -1,18 +1,25 @@
-from services.file_manager import FileManager
-from services.db import Database
-import json
+from services.db_handler import DbHandler
+from services.json_handler import JsonHandler
 
-lote = [{
-        "nome": "cimento",
-        "preco": 35.50,
-        "quantidade": 100
-    },
-    {
-        "nome": "argamassa",
-        "preco": 0.80,
-        "quantidade": 5000
-    }]
+def processar_estoque():
+    json_manager = JsonHandler()
+    db_manager = DbHandler()
 
-db = Database()
+    lote_atual = json_manager.obter_todos_produtos()
 
-db.inserir_lote_no_db()
+    if not lote_atual:
+        print("O arquivo JSON está vazio. Nada a processar.")
+        return
+
+    sucesso = db_manager.inserir_lote(lote_atual)
+
+    if sucesso:
+        json_manager.limpar_dados()
+        print("Processo finalizado: Dados migrados e JSON limpo.")
+    else:
+        print("Erro no banco. O JSON NÃO foi apagado para segurança.")
+
+    db_manager.fechar_conexao()
+
+if __name__ == "__main__":
+    processar_estoque()
