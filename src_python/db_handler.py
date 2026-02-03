@@ -1,6 +1,5 @@
 import sqlite3
 from pathlib import Path
-from src_python.json_handler import JsonHandler
 
 CURRENT_DIR = Path(__file__).resolve().parent
 DB_PATH = CURRENT_DIR.parent / "data" / "storage.db"
@@ -23,18 +22,21 @@ class DbHandler:
         """)
         self.conn.commit()
 
-    def inserir_lote (self, lista_de_produtos):
+    def inserir_lote_json_para_db (self, db_file):
         query = "INSERT INTO produtos (produto, preco, estoque) VALUES (:nome, :preco, :quantidade)"
         
         try:
-            self.cur.executemany(query, lista_de_produtos)
+            self.cur.executemany(query, db_file)
             self.conn.commit()
-            print(f"{len(lista_de_produtos)} produtos inseridos com sucesso!")
+            print(f"{len(db_file)} produtos inseridos com sucesso!")
             return True
         except Exception as e:
             print(f"Erro ao inserir no banco: {e}")
             self.conn.rollback()
             return False
-        
+
+    def limpar_db (self):
+        pass
+
     def fechar_conexao(self):
         self.conn.close()

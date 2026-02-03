@@ -1,13 +1,21 @@
 from src_python.json_handler import JsonHandler
+from src_python.db_handler import DbHandler
+import json
+from pathlib import Path
+
+CURRENT_DIR = Path(__file__).resolve().parent
+PATH_JSON = CURRENT_DIR.parent / "data" / "inventory.json"
 
 class TerminalCLI:
     def __init__(self):
         self.json = JsonHandler()
+        self.db = DbHandler()
 
         self.menu_actions = {
             "1": self.adicionar_produto_interface,
             "2": self.listar_produtos_interface,
-            "3": self.limpar_banco_interface,
+            "3": self.limpar_json_interface,
+            "4": self.migrar_lote_json_para_db_interface,
             "0": self.sair
         }
 
@@ -17,6 +25,7 @@ class TerminalCLI:
             print("1. Adicionar novo produto ao json")
             print("2. Listar todos os produtos do json")
             print("3. Limpar json")
+            print("4. Inserir lote json no db")
             print("0. Sair")
             
             opcao = input(">>> ")
@@ -65,7 +74,14 @@ class TerminalCLI:
         self.json.obter_todos_produtos()
         input("Pressione Enter para voltar...") 
 
-    def limpar_banco_interface(self):
+    def migrar_lote_json_para_db_interface(self):
+        with open(PATH_JSON, 'r') as file:
+            data = json.load(file)
+            self.db.inserir_lote_json_para_db(data)
+            self.limpar_json_interface()
+
+
+    def limpar_json_interface(self):
         self.json.limpar_dados()
         print("Lote json deletado")
         input("Pressione Enter para voltar...") 
