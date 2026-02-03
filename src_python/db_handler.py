@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from src.json_handler import JsonHandler
+from src_python.json_handler import JsonHandler
 
 CURRENT_DIR = Path(__file__).resolve().parent
 DB_PATH = CURRENT_DIR.parent / "data" / "storage.db"
