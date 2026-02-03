@@ -1,1 +1,7 @@
-[]
+[
+    {
+        "nome": "cimento votoran",
+        "preco": 42.0,
+        "quantidade": 1000
+    }
+]

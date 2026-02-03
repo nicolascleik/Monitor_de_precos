@@ -38,7 +38,7 @@ class JsonHandler:
 
     def limpar_dados(self):
         with open(DATA_FILE_PATH, 'w') as file:
-                    json.dump([], file)
+            json.dump([], file)
 
     def inserir_novo_lote(self, lote):
         with open(DATA_FILE_PATH, 'r', encoding='utf-8') as file:
