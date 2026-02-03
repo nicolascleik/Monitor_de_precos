@@ -20,22 +20,6 @@ class JsonHandler:
             print(json.dumps(data, indent=4))
         return data
 
-    def deletar_lote_json(self):
-        confirmacao = input("Voce realmente quer deletar todo lote? S / N ").upper()
-
-        deletado = False
-
-        if confirmacao == "S":
-            frase_de_confirmacao = input("Digite a seguinte frase para deletar - 'DELETARTODOLOTE': ").upper()
-            if frase_de_confirmacao == "DELETARTODOLOTE":
-                with open(DATA_FILE_PATH, 'w') as file:
-                    json.dump([], file)
-                    print("Lote deletado com sucesso")
-                    deletado = True
-
-        if not deletado:
-            print("Deleção de lote cancelada")
-
     def limpar_dados(self):
         with open(DATA_FILE_PATH, 'w') as file:
             json.dump([], file)

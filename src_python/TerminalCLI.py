@@ -63,10 +63,12 @@ class TerminalCLI:
 
     def listar_produtos_interface(self):
         self.json.obter_todos_produtos()
-        
+        input("Pressione Enter para voltar...") 
 
     def limpar_banco_interface(self):
         self.json.limpar_dados()
+        print("Lote json deletado")
+        input("Pressione Enter para voltar...") 
 
     def sair(self):
         print("Saindo...")
