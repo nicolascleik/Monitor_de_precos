@@ -1,0 +1,26 @@
+{
+  "name": "monitor_de_precos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolascleik/Monitor_de_precos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/nicolascleik/Monitor_de_precos/issues"
+  },
+  "homepage": "https://github.com/nicolascleik/Monitor_de_precos#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "sqlite3": "^5.1.7"
+  }
+}
