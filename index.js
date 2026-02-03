@@ -1,27 +1,8 @@
 import express from "express";
-import sqlite3 from "sqlite3";
-
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import db from "./src_node/config/db.js"
 
 const app = express()
 const PORT = 3000
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-sqlite3.verbose();
-
-const dbPath = path.resolve(__dirname, 'data', 'storage.db')
-console.log(`Tentando conectar ao banco em: ${dbPath}`);
-
-const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-        console.error('Erro ao conectar (Verifique o caminho!):', err.message);
-    } else {
-        console.log('Conectado ao banco SQLite com sucesso!');
-    }
-});
 
 app.get("/retornarTodosProdutos", (req, res) =>{
     db.all("SELECT * FROM produtos", [], (err, rows) => {
