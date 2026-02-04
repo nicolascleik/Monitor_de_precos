@@ -14,8 +14,9 @@ class TerminalCLI:
         self.menu_actions = {
             "1": self.adicionar_produto_interface,
             "2": self.listar_produtos_interface,
-            "3": self.limpar_json_interface,
-            "4": self.migrar_lote_json_para_db_interface,
+            "3": self.migrar_lote_json_para_db_interface,
+            "4": self.limpar_json_interface,
+            "5": self.deletar_todos_dados_banco_de_dados,
             "0": self.sair
         }
 
@@ -24,8 +25,9 @@ class TerminalCLI:
             print("\n--- MENU ---")
             print("1. Adicionar novo produto ao json")
             print("2. Listar todos os produtos do json")
-            print("3. Limpar json")
-            print("4. Inserir lote json no db")
+            print("3. Inserir lote json no db") 
+            print("4. Limpar json")
+            print("5. Limpar Banco de Dados")
             print("0. Sair")
             
             opcao = input(">>> ")
@@ -80,6 +82,11 @@ class TerminalCLI:
             self.db.inserir_lote_json_para_db(data)
             self.limpar_json_interface()
 
+    def deletar_todos_dados_banco_de_dados(self):
+        confimarcao = input("Você tem certeza que quer apagar todos os dados do banco de dados? S / N").upper()
+        if confimarcao == "S":
+            self.db.limpar_db()
+            input("Pressione Enter para voltar...")
 
     def limpar_json_interface(self):
         self.json.limpar_dados()

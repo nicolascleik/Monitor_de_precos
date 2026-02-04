@@ -36,7 +36,19 @@ class DbHandler:
             return False
 
     def limpar_db (self):
-        pass
+        query_limpar_db = "DELETE FROM produtos"
+        qyert_resetar_ids = "DELETE FROM sqlite_sequence WHERE name='produtos'"
+
+        try:
+            self.cur.execute(query_limpar_db)
+            self.cur.execute(qyert_resetar_ids)
+            self.conn.commit()
+            print("Banco de dados zerado com sucesso!")
+            return True
+        except Exception as e:
+            print(f"Erro ao excluir banco de dados: {e}")
+            self.conn.rollback()
+            return False
 
     def fechar_conexao(self):
         self.conn.close()
