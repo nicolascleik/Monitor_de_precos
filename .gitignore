@@ -1,4 +1,6 @@
 data/*.db
 __pycache__/
+htmlcov/
+coverage/
 *.pyc
 .env

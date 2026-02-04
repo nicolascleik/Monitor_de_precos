@@ -21,9 +21,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(router);
 
-app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}/`);
-})
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    app.listen(PORT, () => {
+        console.log(`Server is running at http://localhost:${PORT}/`);
+    });
+}
 
 //db.close((err) => {
 //    if (err) {
