@@ -11,6 +11,21 @@ export function getAll() {
     });
 }
 
+export function searchProductByName(produto){
+    return new Promise((resolve, reject) => {
+        const termoBusca = `%${produto}%`;
+        const query = "SELECT * FROM produtos WHERE produtos.produto LIKE ?";
+
+        db.all(query, [termoBusca], (err, rows) =>{
+            if (err){
+                reject(err)
+            }
+            resolve(rows)
+            console.log(rows)
+        });
+    })
+}
+
 export function sumAllStockValue(){
     return new Promise((resolve, reject) => {
         const query = "SELECT SUM(preco * estoque) as total FROM produtos"

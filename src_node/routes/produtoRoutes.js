@@ -28,15 +28,7 @@ router.get("/filtrarProdutosPorPreco", (req, res) => {
     });
 });
 
-router.get("/filtrarProdutosPorNome", (req, res) => {
-    const query = "SELECT * FROM produtos WHERE produtos.produto LIKE '%bl%'";
-    db.all(query, [], (err, rows) =>{
-        if (err){
-            throw err
-        }
-        console.log("Filtagem por nome:", rows)
-    });
-});
+router.get("/filtrarProdutosPorNome", ProdutoController.buscarProdutoPorNome);
 
 router.get("/filtrarProdutosPorQuantidade", (req, res) => {
     const query = "SELECT * FROM produtos WHERE produtos.estoque > 20"

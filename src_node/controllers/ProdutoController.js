@@ -9,6 +9,15 @@ export async function retornarTodosProdutos(req, res){
     }
 }
 
+export async function buscarProdutoPorNome(req, res) {
+    try{
+        const produtos = await produtoModel.searchProductByName(req.query.nome)
+        res.status(200).json(produtos);
+    } catch (err) {
+        res.status(500).json({err: err.message})
+    }
+}
+
 export async function somarValorEstoque(req, res) {
     try{
         const produtos = await produtoModel.sumAllStockValue()
@@ -35,7 +44,7 @@ export async function filtrarProdutosPrecoDescrecente(req, res) {
         res.status(500).json({err: err.message})
     }
 }
-
+ 
 export async function filtrarProdutosQuantidadeCrescente(req, res) {
     try{
         const produtos = await produtoModel.getAllProductsByStockASC();

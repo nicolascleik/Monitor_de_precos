@@ -30,7 +30,11 @@ async function buscarDados(url) {
 }
 
 async function buscarPorNome() {
-    
+    const termo = document.getElementById('input-busca-nome').value;
+
+    const url = `http://localhost:3000/filtrarProdutosPorNome?nome=${termo}`;
+
+    buscarDados(url);
 }
 
 async function filtragemPorValores(listaProdutos) {
