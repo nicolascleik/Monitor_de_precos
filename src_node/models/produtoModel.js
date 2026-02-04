@@ -13,7 +13,7 @@ export function getAll() {
 
 export function sumAllStockValue(){
     return new Promise((resolve, reject) => {
-        const query = "SELECT SUM(preco * estoque) FROM produtos"
+        const query = "SELECT SUM(preco * estoque) as total FROM produtos"
         db.all(query, [], (err, rows) =>{
             if (err){
                 reject(err)
@@ -23,7 +23,7 @@ export function sumAllStockValue(){
     })
 }
 
-export function gellAllProductsByPriceASC(){
+export function getAllProductsByPriceASC(){
     return new Promise((resolve, reject) =>{
         const query = "SELECT * FROM produtos ORDER BY produtos.preco ASC"
         db.all(query, [], (err, rows) =>{
@@ -35,7 +35,7 @@ export function gellAllProductsByPriceASC(){
     })
 }
 
-export function gellAllProductsByPriceDESC(){
+export function getAllProductsByPriceDESC(){
     return new Promise((resolve, reject) =>{
         const query = "SELECT * FROM produtos ORDER BY produtos.preco DESC"
             db.all(query, [], (err, rows) =>{
@@ -47,7 +47,7 @@ export function gellAllProductsByPriceDESC(){
     });
 }
 
-export function gellAllProductsByStockASC() {
+export function getAllProductsByStockASC() {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM produtos ORDER BY produtos.estoque ASC"
         db.all(query, [], (err, rows) =>{
@@ -59,7 +59,7 @@ export function gellAllProductsByStockASC() {
     })
 }
 
-export function gellAllProductsByStockDESC(){
+export function getAllProductsByStockDESC(){
     return new Promise((resolve, reject) =>{
         const query = "SELECT * FROM produtos ORDER BY produtos.estoque DESC"
         db.all(query, [], (err, rows) =>{

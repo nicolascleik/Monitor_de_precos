@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Manager</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>📦 Controle de Estoque</h1>
+        <div class="kpi-card">
+            <h3>Valor Total em Estoque</h3>
+            <p>R$ <span id="valor-total-estoque">0,00</span></p>
+        </div>
+    </div>
+
+    <div class="filters-container">
+        <div>
+            <label>Buscar Produto:</label>
+            <input type="text" id="input-busca-nome" placeholder="Ex: Cimento...">
+            <button onclick="buscarPorNome()">🔍 Buscar</button>
+        </div>
+
+        <div>
+            <label>Preço Mínimo:</label>
+            <input type="number" id="input-busca-preco" placeholder="0.00">
+            <button onclick="buscarPorPreco()">💰 Filtrar</button>
+        </div>
+
+        <div>
+            <label>Ordenar Por:</label>
+            <div style="margin-top: 5px;">
+                <button class="btn-secondary" onclick="ordenar('preco-asc')">Preço ⬆</button>
+                <button class="btn-secondary" onclick="ordenar('preco-desc')">Preço ⬇</button>
+            </div>
+            <div style="margin-top: 5px;">
+                <button class="btn-secondary" onclick="ordenar('qtd-asc')">Estoque ⬆</button>
+                <button class="btn-secondary" onclick="ordenar('qtd-desc')">Estoque ⬇</button>
+            </div>
+        </div>
+        
+        <div style="display: flex; align-items: end;">
+            <button onclick="carregarTodos()" style="background-color: #e67e22; width: 100%;">🔄 Recarregar Tudo</button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Produto</th>
+                <th>Preço Unit.</th>
+                <th>Quantidade</th>
+                <th>Total (Item)</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-produtos">
+            </tbody>
+    </table>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
