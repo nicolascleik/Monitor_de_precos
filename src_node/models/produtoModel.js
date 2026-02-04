@@ -21,7 +21,6 @@ export function searchProductByName(produto){
                 reject(err)
             }
             resolve(rows)
-            console.log(rows)
         });
     })
 }

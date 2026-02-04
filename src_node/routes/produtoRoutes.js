@@ -1,5 +1,4 @@
 import Router from "express";
-import db from "../config/db.js"
 import * as ProdutoController from "../controllers/ProdutoController.js"
 
 import path from "path"; 

@@ -1,6 +1,4 @@
-function ordenar(criterio) {
-    console.log("O usuário pediu para ordenar por:", criterio);
-
+async function ordenar(criterio) {
     let urlDaApi = "";
 
     if (criterio === 'preco-asc') {
@@ -15,15 +13,24 @@ function ordenar(criterio) {
     else if (criterio === 'qtd-desc') {
         urlDaApi = "http://localhost:3000/filtrarProdutosQuantidadeDescrecente";
     }
-    buscarDados(urlDaApi);
+
+    const dados = await buscarDados(urlDaApi);
+
+    if (dados) {
+        filtragemPorValores(dados);
+    }
 }
 
 async function buscarDados(url) {
     try {
         const resposta = await fetch(url);
-        const dados = await resposta.json(); 
-
-        filtragemPorValores(dados)
+        
+        if (!resposta.ok) {
+            throw new Error(`Erro HTTP: ${resposta.status}`);
+        }
+        
+        const dados = await resposta.json();
+        return dados;
     } catch (error) {
         console.error("Erro ao buscar:", error);
     }
@@ -34,7 +41,10 @@ async function buscarPorNome() {
 
     const url = `http://localhost:3000/filtrarProdutosPorNome?nome=${termo}`;
 
-    buscarDados(url);
+    const dados = await buscarDados(url);
+    if (dados) {
+        filtragemPorValores(dados);
+    }
 }
 
 async function buscarPorPreco() {
@@ -42,7 +52,10 @@ async function buscarPorPreco() {
 
     const url = `http://localhost:3000/filtrarProdutosPorPreco?preco=${termo}`;
 
-    buscarDados(url);
+    const dados = await buscarDados(url);
+    if (dados) {
+        filtragemPorValores(dados);
+    }
 }
 
 async function buscarPorQuantidade() {
@@ -51,6 +64,15 @@ async function buscarPorQuantidade() {
     const url = `http://localhost:3000/filtrarProdutosPorQuantidade?estoque=${termo}`;
 
     buscarDados(url);
+}
+
+async function carregarTodos() {
+    const url = `http://localhost:3000/retornarTodosProdutos`;
+    const dados = await buscarDados(url);
+
+    if (dados) {
+        filtragemPorValores(dados);
+    }
 }
 
 async function filtragemPorValores(listaProdutos) {
@@ -75,6 +97,27 @@ async function filtragemPorValores(listaProdutos) {
     }); 
 }
 
-window.onload = () => {
-    buscarDados('http://localhost:3000/retornarTodosProdutos');
+async function carregarValorDeEstoque() {
+    const elementoValor = document.getElementById("valor-total-estoque")
+    const url = "http://localhost:3000/valorDoEstoque";
+
+    const dados = await buscarDados(url);
+
+    if (dados && dados.length > 0) {
+        const valorBruto = dados[0].total;
+
+        const valorFormatado = new Intl.NumberFormat('pt-BR', { 
+            style: 'currency', 
+            currency: 'BRL' 
+        }).format(valorBruto);
+
+        elementoValor.innerText = valorFormatado;
+    } else {
+        elementoValor.innerText = "R$ 0,00";
+    }
+}
+
+window.onload = () => { 
+    carregarTodos();
+    carregarValorDeEstoque();
 };

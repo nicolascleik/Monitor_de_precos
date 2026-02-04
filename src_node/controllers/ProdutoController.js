@@ -1,4 +1,3 @@
-import e from "express";
 import * as produtoModel from "../models/produtoModel.js";
 
 export async function retornarTodosProdutos(req, res){
