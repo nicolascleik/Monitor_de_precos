@@ -26,6 +26,35 @@ export function searchProductByName(produto){
     })
 }
 
+export function searchProductByPrice(preco){
+    return new Promise((resolve, reject) => {
+        const termoBusca = `${preco}`;
+        const query = "SELECT * FROM produtos WHERE produtos.preco > ?"
+
+        db.all(query, [termoBusca], (err, rows) =>{
+            if (err){
+                reject(err)
+            }
+            resolve(rows)
+        })
+    })
+}
+
+export function searchProductByQuantity(quantidade){
+    return new Promise((resolve, reject) => {
+        const termoBusca = `${quantidade}`;
+        const query = "SELECT * FROM produtos WHERE produtos.estoque > ?"
+
+        db.all(query, [termoBusca], (err, rows) =>{
+            if (err){
+                reject(err)
+            }
+            
+            resolve(rows)
+        })
+    })
+}
+
 export function sumAllStockValue(){
     return new Promise((resolve, reject) => {
         const query = "SELECT SUM(preco * estoque) as total FROM produtos"

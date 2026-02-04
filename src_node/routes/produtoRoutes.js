@@ -18,27 +18,11 @@ router.get("/", (req, res)=>{
 
 router.get("/retornarTodosProdutos", ProdutoController.retornarTodosProdutos);
 
-router.get("/filtrarProdutosPorPreco", (req, res) => {
-    const query = "SELECT * FROM produtos WHERE produtos.preco > 10"
-    db.all(query, [], (err, rows) =>{
-        if (err){
-            throw err;
-        }
-        console.log("Filtagem por preço:", rows);
-    });
-});
+router.get("/filtrarProdutosPorPreco", ProdutoController.buscarProdutoPorPreco);
 
 router.get("/filtrarProdutosPorNome", ProdutoController.buscarProdutoPorNome);
 
-router.get("/filtrarProdutosPorQuantidade", (req, res) => {
-    const query = "SELECT * FROM produtos WHERE produtos.estoque > 20"
-    db.all(query, [], (err, rows) =>{
-        if (err){
-            throw err
-        }
-        console.log("Filtagem por quantidade selecionada:", rows)
-    })
-})
+router.get("/filtrarProdutosPorQuantidade", ProdutoController.buscarPorQuantidade)
 
 router.get("/filtrarProdutosPrecoCrescente", ProdutoController.filtrarProdutosPrecoCrescente)
 

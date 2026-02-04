@@ -37,6 +37,22 @@ async function buscarPorNome() {
     buscarDados(url);
 }
 
+async function buscarPorPreco() {
+    const termo = Number.parseFloat(document.getElementById('input-busca-preco').value);
+
+    const url = `http://localhost:3000/filtrarProdutosPorPreco?preco=${termo}`;
+
+    buscarDados(url);
+}
+
+async function buscarPorQuantidade() {
+    const termo = Number.parseInt(document.getElementById('input-busca-quantidade').value);
+
+    const url = `http://localhost:3000/filtrarProdutosPorQuantidade?estoque=${termo}`;
+
+    buscarDados(url);
+}
+
 async function filtragemPorValores(listaProdutos) {
     const tbody = document.getElementById('tabela-produtos');
     tbody.innerHTML = '';
