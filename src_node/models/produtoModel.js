@@ -28,7 +28,7 @@ export function searchProductByName(produto){
 export function searchProductByPrice(preco){
     return new Promise((resolve, reject) => {
         const termoBusca = `${preco}`;
-        const query = "SELECT * FROM produtos WHERE produtos.preco > ?"
+        const query = "SELECT * FROM produtos WHERE produtos.preco >= ?"
 
         db.all(query, [termoBusca], (err, rows) =>{
             if (err){
@@ -42,7 +42,7 @@ export function searchProductByPrice(preco){
 export function searchProductByQuantity(quantidade){
     return new Promise((resolve, reject) => {
         const termoBusca = `${quantidade}`;
-        const query = "SELECT * FROM produtos WHERE produtos.estoque > ?"
+        const query = "SELECT * FROM produtos WHERE produtos.estoque >= ?"
 
         db.all(query, [termoBusca], (err, rows) =>{
             if (err){

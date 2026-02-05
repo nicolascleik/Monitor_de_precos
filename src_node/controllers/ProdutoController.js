@@ -40,7 +40,7 @@ export async function somarValorEstoque(req, res) {
     try{
         const produtos = await produtoModel.sumAllStockValue()
         res.status(200).json(produtos);
-    } catch{
+    } catch (err) {
         res.status(500).json({err: err.message})
     }
 }
