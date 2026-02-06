@@ -99,7 +99,31 @@ def test_limpar_banco_recusado(monkeypatch):
 
     cli.db.limpar_db.assert_not_called()
 
+def test_adicionar_produto_falha_ao_salvar(monkeypatch, capsys):
+    inputs = iter(["1", "Cimento", "1", "1", "", "0"])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    
+    cli = TerminalCLI()
+    
+    cli.json.inserir_novo_lote = MagicMock(side_effect=Exception("Disco Cheio"))
+    
+    with pytest.raises(SystemExit):
+        cli.executar()
+        
+    captured = capsys.readouterr()
+    assert "Erro ao salvar no arquivo: Disco Cheio" in captured.out
 
+def test_opcao_menu_invalida(monkeypatch, capsys):
+    inputs = iter(["99", "0"])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    
+    cli = TerminalCLI()
+    
+    with pytest.raises(SystemExit):
+        cli.executar()
+        
+    captured = capsys.readouterr()
+    assert "Opção Inválida!" in captured.out
 
 
 
