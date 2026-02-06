@@ -3,7 +3,7 @@
 > Um sistema full-stack para gestão e monitoramento de estoque, combinando a robustez do Python para operações de ETL (CLI) e a performance do Node.js para distribuição de dados via API REST.
 
 ![Badge Concluído](https://img.shields.io/badge/Status-Concluído-green)
-![Python Coverage](https://img.shields.io/badge/Python_Cov-87%25-blue)
+![Python Coverage](https://img.shields.io/badge/Python_Cov-95%25-blue)
 ![Node Coverage](https://img.shields.io/badge/Node_Cov-83%25-success)
 ![Node](https://img.shields.io/badge/Node.js-v18+-339933?logo=node.js)
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python)
