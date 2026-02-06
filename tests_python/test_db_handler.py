@@ -1,5 +1,6 @@
 import pytest
 from src_python.db_handler import DbHandler
+from unittest.mock import MagicMock
 
 @pytest.fixture
 def db_handler_teste(tmp_path):
@@ -46,3 +47,33 @@ def test_limpar_banco(db_handler_teste):
     
     cursor = db_handler_teste.conn.execute("SELECT count(*) FROM produtos")
     assert cursor.fetchone()[0] == 0
+
+def test_inserir_lote_com_erro_deve_fazer_rollback(db_handler_teste):
+    conexao_falsa = MagicMock()
+    cursor_falso = MagicMock()
+    
+    cursor_falso.executemany.side_effect = Exception("Erro Simulado de SQL")
+    
+    db_handler_teste.conn = conexao_falsa
+    db_handler_teste.cur = cursor_falso
+    
+    lote = [{"produto": "Teste", "preco": 10, "quantidade": 1}]
+
+    resultado = db_handler_teste.inserir_lote_json_para_db(lote)
+
+    assert resultado is False
+    conexao_falsa.rollback.assert_called_once()
+
+def test_limpar_db_com_erro_deve_fazer_rollback(db_handler_teste):
+    conexao_falsa = MagicMock()
+    cursor_falso = MagicMock()
+    
+    cursor_falso.execute.side_effect = Exception("Erro ao deletar")
+    
+    db_handler_teste.conn = conexao_falsa
+    db_handler_teste.cur = cursor_falso
+
+    resultado = db_handler_teste.limpar_db()
+
+    assert resultado is False
+    conexao_falsa.rollback.assert_called_once()
