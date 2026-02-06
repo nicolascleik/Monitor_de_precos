@@ -2,16 +2,23 @@ import sqlite3
 from pathlib import Path
 
 CURRENT_DIR = Path(__file__).resolve().parent
-DB_PATH = CURRENT_DIR.parent / "data" / "storage.db"
+DEFAULT_DB_PATH = CURRENT_DIR.parent / "data" / "storage.db"
 
 class DbHandler:
-    def __init__(self):
-        print("Iniciando conexão com Banco de Dados...")
-        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    def __init__(self, db_path=DEFAULT_DB_PATH):
+        self.db_path = Path(db_path)
+        self._conectar()
+    
+    def _conectar(self):
+        if not self.db_path.parent.exists():
+            self.db_path.parent.mkdir(parents=True, exist_ok=True)
         
-        self.conn = sqlite3.connect(DB_PATH)
+        self.conn = sqlite3.connect(self.db_path)
+        self.conn.row_factory = sqlite3.Row 
         self.cur = self.conn.cursor()
-
+        self._criar_tabela()
+    
+    def _criar_tabela(self):
         self.cur.execute("""
             CREATE TABLE IF NOT EXISTS produtos (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,7 +30,7 @@ class DbHandler:
         self.conn.commit()
 
     def inserir_lote_json_para_db (self, db_file):
-        query = "INSERT INTO produtos (produto, preco, estoque) VALUES (:nome, :preco, :quantidade)"
+        query = "INSERT INTO produtos (produto, preco, estoque) VALUES (:produto, :preco, :quantidade)"
         
         try:
             self.cur.executemany(query, db_file)
