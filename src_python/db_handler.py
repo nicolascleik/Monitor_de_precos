@@ -44,11 +44,11 @@ class DbHandler:
 
     def limpar_db (self):
         query_limpar_db = "DELETE FROM produtos"
-        qyert_resetar_ids = "DELETE FROM sqlite_sequence WHERE name='produtos'"
+        query_resetar_ids = "DELETE FROM sqlite_sequence WHERE name='produtos'"
 
         try:
             self.cur.execute(query_limpar_db)
-            self.cur.execute(qyert_resetar_ids)
+            self.cur.execute(query_resetar_ids)
             self.conn.commit()
             print("Banco de dados zerado com sucesso!")
             return True

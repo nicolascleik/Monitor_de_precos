@@ -20,7 +20,6 @@ class JsonHandler:
     def obter_todos_produtos(self):
         with open(self.file_path, 'r', encoding='utf-8') as json_file:
             data = json.load(json_file)
-            print(json.dumps(data, indent=4))
         return data
 
     def limpar_dados(self):

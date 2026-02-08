@@ -73,14 +73,25 @@ class TerminalCLI:
             print(f"Erro ao salvar no arquivo: {e}")
 
     def listar_produtos_interface(self):
-        self.json.obter_todos_produtos()
+        produtos = self.json.obter_todos_produtos()
+        
+        print(json.dumps(produtos, indent=4)) 
         input("Pressione Enter para voltar...") 
 
     def migrar_lote_json_para_db_interface(self):
-        with open(PATH_JSON, 'r') as file:
-            data = json.load(file)
-            self.db.inserir_lote_json_para_db(data)
-            self.limpar_json_interface()
+        data = self.json.obter_todos_produtos() 
+    
+        if not data:
+            print("Json vazio. Nada para migrar.")
+            return
+
+        sucesso = self.db.inserir_lote_json_para_db(data)
+        
+        if sucesso:
+            self.json.limpar_dados()
+            print("Migração concluída e JSON limpo.")
+        
+        input("Pressione Enter para voltar...")
 
     def deletar_todos_dados_banco_de_dados(self):
         confimarcao = input("Você tem certeza que quer apagar todos os dados do banco de dados? S / N").upper()
