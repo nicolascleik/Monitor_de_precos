@@ -59,7 +59,7 @@ class TerminalCLI:
         
         lote = [
             {
-                'nome': nome_produto,
+                'produto': nome_produto,
                 'preco': preco_produto,
                 'quantidade': quantidade
             }
